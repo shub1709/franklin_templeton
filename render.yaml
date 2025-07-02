@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: app-search
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn project.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: project.settings
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        generateValue: true
+      - fromDatabase:
+          name: appsearch-db
+          property: connectionString
+        key: DATABASE_URL
+
+databases:
+  - name: appsearch-db
+    databaseName: appsearch
+    user: appsearch_user
