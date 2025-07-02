@@ -8,9 +8,8 @@ services:
       python manage.py migrate --noinput
       python manage.py load_data
       
-    startCommand: |
-      python manage.py migrate &&
-      gunicorn wsgi:application
+    startCommand: "./render_start.sh"
+
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: project.settings
