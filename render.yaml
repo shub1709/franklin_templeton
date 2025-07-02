@@ -7,7 +7,7 @@ services:
           python run_setup.py
     startCommand: |
       python manage.py migrate &&
-      gunicorn project.wsgi:application
+      gunicorn wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: project.settings
