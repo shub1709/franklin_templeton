@@ -52,7 +52,7 @@ TEMPLATES = [
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{os.path.join(BASE_DIR, 'db.sqlite3')}",
+        default="postgresql://postgres:[Tisan@1234]@db.nmxzmtrzqlmtgswmsmzf.supabase.co:5432/postgres",
         conn_max_age=600
     )
 }
