@@ -3,8 +3,8 @@ services:
     name: app-search
     env: python
     buildCommand: |
-          pip install -r requirements.txt
-          # python run_setup.py
+          pip install -r requirements.txt &&
+          python run_setup.py
     startCommand: |
       python manage.py migrate &&
       gunicorn wsgi:application
