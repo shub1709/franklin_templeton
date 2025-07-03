@@ -45,7 +45,7 @@
                     {% if top_app or similar_apps %}
                         <i class="fas fa-list me-2"></i>
                         {% if top_app %}
-                            Best match for "{{ query }}"{% if similar_apps %} and {{ similar_apps|length }} similar result{{ similar_apps|length|pluralize }}{% endif %}
+                            Showing results for "{{ query }}"{% if similar_apps %} and {{ similar_apps|length }} similar result{{ similar_apps|length|pluralize }}{% endif %}
                         {% else %}
                             Found {{ similar_apps|length }} result{{ similar_apps|length|pluralize }} for "{{ query }}"
                         {% endif %}
@@ -61,7 +61,7 @@
                 <!-- Top App (Best Match) -->
                 {% if top_app %}
                     <div class="col-12 mb-4">
-                        <div class="app-card" style="border: 3px solid #667eea; background: rgba(102, 126, 234, 0.1);">
+                        <div class="app-card" style="border: 3px solid #667eea;">
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div>
                                     <h5 class="card-title mb-0">{{ top_app.app_name|truncatechars:50 }}</h5>
