@@ -13,20 +13,24 @@ from .search_utils import get_search_engine
 
 
 def home(request):
+    """Home page with search functionality"""
     query = request.GET.get('q', '').strip()
     apps = []
-    main_app = None
+    top_app = None
     similar_apps = []
-
+    
     if query:
-        results = get_search_engine().search(query, max_results=50)
-        if results:
-            main_app = results[0]
-            similar_apps = [app for app in results[1:] if app.category == main_app.category][:20]
-
+        all_apps = get_search_engine().search(query, max_results=20)
+        
+        if all_apps:
+            # Take the first (most relevant) app as the top result
+            top_app = all_apps[0]
+            # The rest are similar apps
+            similar_apps = all_apps[1:]
+    
     context = {
         'query': query,
-        'main_app': main_app,
+        'top_app': top_app,
         'similar_apps': similar_apps,
         'show_results': bool(query)
     }
