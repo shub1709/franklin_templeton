@@ -8,6 +8,11 @@ class Command(BaseCommand):
     help = 'Load data from CSV files'
     
     def handle(self, *args, **options):
+        # Check if data already exists
+        if GooglePlayApp.objects.exists() and ExistingReview.objects.exists():
+            self.stdout.write("Data already loaded, skipping...")
+            return
+        
         # Load Google Play Store apps
         apps_file = os.path.join(settings.BASE_DIR, 'googleplaystore.csv')
         if os.path.exists(apps_file):
