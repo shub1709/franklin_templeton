@@ -43,7 +43,7 @@ def autocomplete(request):
     
     if len(query) >= 3:
         # suggestions = get_search_engine().get_suggestions(query, max_suggestions=10)
-        suggestions = get_search_engine().get_suggestions(query, max_suggestions=10000)
+        suggestions = get_search_engine().get_suggestions(query, max_suggestions=15)
     
     return JsonResponse({'suggestions': suggestions})
 
