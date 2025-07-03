@@ -25,8 +25,8 @@ def home(request):
         if all_apps:
             # Take the first (most relevant) app as the top result
             top_app = all_apps[0]
-            # The rest are similar apps
-            similar_apps = all_apps[1:]
+            # Filter similar apps to only show those from the same category
+            similar_apps = [app for app in all_apps[1:] if app.category == top_app.category]
     
     context = {
         'query': query,
