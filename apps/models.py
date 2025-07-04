@@ -47,6 +47,13 @@ class UserReview(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_reviews')
     approved_at = models.DateTimeField(null=True, blank=True)
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]  # 1 through 5
+    rating = models.PositiveSmallIntegerField(
+        choices=RATING_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name="Rating (1-5 stars)"
+    )
     
     def __str__(self):
         return f"{self.app.app_name} - {self.user.username}"

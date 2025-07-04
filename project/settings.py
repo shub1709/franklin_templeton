@@ -52,7 +52,7 @@ TEMPLATES = [
 
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://postgres:[Tisan@1234]@db.nmxzmtrzqlmtgswmsmzf.supabase.co:5432/postgres",
+        default="postgresql://appsearch_db_user:ZAif7ng1XnBqytWTrnEyGzaKtV5Jcy6o@dpg-d1iedcqdbo4c73f0p0qg-a.oregon-postgres.render.com/appsearch_db",
         conn_max_age=600
     )
 }
