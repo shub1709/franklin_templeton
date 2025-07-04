@@ -147,27 +147,43 @@
                             {{ review_form.sentiment }}
                         </div> -->
                         <style>
+                        .rating-stars {
+                            display: flex;
+                            flex-direction: row-reverse;            /* ⭐ Left to right */
+                            justify-content: flex-end;    /* ⭐ Align to left */
+                            gap: 0.3rem;
+                            direction: ltr;                 /* ⭐ Force logical left-to-right behavior */
+                        }
+
                         .rating-stars input {
                             display: none;
                         }
+
                         .rating-stars label {
                             font-size: 2rem;
                             color: #ddd;
                             cursor: pointer;
                             transition: color 0.2s;
                         }
-                        .rating-stars input:checked ~ label,
+
+                        /* Highlight stars on hover and selection — left to right */
                         .rating-stars label:hover,
                         .rating-stars label:hover ~ label {
                             color: #f5b301;
                         }
-                        .rating-stars {
-                            display: flex;
-                            flex-direction: row-reverse; /* Keep highlighting correct */
-                            justify-content: flex-start; /* ✅ Align to left */
-                            gap: 0.3rem;
+
+                        .rating-stars input:checked ~ label {
+                            color: #ddd;
+                        }
+
+                        /* highlight up to the checked star */
+                        .rating-stars input:checked + label,
+                        .rating-stars input:checked + label ~ label {
+                            color: #f5b301;
                         }
                         </style>
+
+
 
                         <div class="mb-3">
                             <label for="rating">Rating:</label>
@@ -178,6 +194,8 @@
                                 {% endfor %}
                             </div>
                         </div>
+
+
 
 
                         <div class="mb-3">
