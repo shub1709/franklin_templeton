@@ -83,29 +83,23 @@
             {% if existing_reviews %}
                 <h5 class="text-white mb-3">Play Store Reviews</h5>
                 {% for review in existing_reviews %}
-                    <div class="review-card">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <span class="badge bg-{{ review.sentiment|lower }}">{{ review.sentiment }}</span>
-                            <small class="text-muted">
-                                Polarity: {{ review.sentiment_polarity|floatformat:2 }}
-                            </small>
-                        </div>
+                    <div class="review-card review-{{ review.sentiment|lower }}">
                         <p class="mb-0">{{ review.review_text }}</p>
                     </div>
                 {% endfor %}
             {% endif %}
+
             
             <!-- User Reviews -->
             {% if user_reviews %}
                 <h5 class="text-white mb-3 mt-4">Community Reviews</h5>
                 {% for review in user_reviews %}
-                    <div class="review-card">
+                    <div class="review-card review-{{ review.sentiment|lower }}">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <div>
                                 <strong>{{ review.user.username }}</strong>
-                                <span class="badge bg-{{ review.sentiment|lower }} ms-2">{{ review.sentiment }}</span>
                                 {% if review.rating %}
-                                    <div class="mb-1">
+                                    <div class="mt-1">
                                         {% for i in "12345" %}
                                             {% if forloop.counter <= review.rating %}
                                                 <i class="fas fa-star text-warning"></i>
