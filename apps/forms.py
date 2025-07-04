@@ -20,19 +20,39 @@ class ReviewForm(forms.ModelForm):
         }
 
 # Added this class to throw the error while registering a new account which already exists
+# class CustomUserCreationForm(UserCreationForm):
+#     class Meta:
+#         model = User
+#         fields = ['username', 'password1', 'password2']
+
+#     def clean(self):
+#         cleaned_data = super().clean()
+
+#         # ✅ Suppress password-related errors if username is invalid
+#         if 'username' in self.errors:
+#             # Remove all password-related errors
+#             for field in ['password1', 'password2']:
+#                 if field in self._errors:
+#                     del self._errors[field]
+
+#         return cleaned_data
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
 
-    def clean(self):
-        cleaned_data = super().clean()
+    def is_valid(self):
+        """
+        Override is_valid to prevent password validation if username is invalid.
+        """
+        super_valid = super().is_valid()
 
-        # ✅ Suppress password-related errors if username is invalid
+        # If username is invalid, strip password-related errors
         if 'username' in self.errors:
-            # Remove all password-related errors
             for field in ['password1', 'password2']:
-                if field in self._errors:
-                    del self._errors[field]
+                if field in self.errors:
+                    del self.errors[field]
 
-        return cleaned_data
+        # Recompute validity based on modified errors
+        return not self.errors
