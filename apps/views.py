@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+
+# from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm
+
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Q
@@ -118,14 +121,13 @@ def reject_review(request, review_id):
     return redirect('supervisor_dashboard')
 
 def register(request):
-    """User registration"""
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
