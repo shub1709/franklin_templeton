@@ -104,6 +104,18 @@
                             <div>
                                 <strong>{{ review.user.username }}</strong>
                                 <span class="badge bg-{{ review.sentiment|lower }} ms-2">{{ review.sentiment }}</span>
+                                {% if review.rating %}
+                                    <div class="mb-1">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= review.rating %}
+                                                <i class="fas fa-star text-warning"></i>
+                                            {% else %}
+                                                <i class="far fa-star text-muted"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <small class="text-muted">({{ review.rating }}/5)</small>
+                                    </div>
+                                {% endif %}
                             </div>
                             <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
                         </div>
@@ -130,10 +142,44 @@
                     </h5>
                     <form method="POST">
                         {% csrf_token %}
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             {{ review_form.sentiment.label_tag }}
                             {{ review_form.sentiment }}
+                        </div> -->
+                        <style>
+                        .rating-stars input {
+                            display: none;
+                        }
+                        .rating-stars label {
+                            font-size: 2rem;
+                            color: #ddd;
+                            cursor: pointer;
+                            transition: color 0.2s;
+                        }
+                        .rating-stars input:checked ~ label,
+                        .rating-stars label:hover,
+                        .rating-stars label:hover ~ label {
+                            color: #f5b301;
+                        }
+                        .rating-stars {
+                            display: flex;
+                            flex-direction: row-reverse; /* Keep highlighting correct */
+                            justify-content: flex-start; /* ✅ Align to left */
+                            gap: 0.3rem;
+                        }
+                        </style>
+
+                        <div class="mb-3">
+                            <label for="rating">Rating:</label>
+                            <div class="rating-stars">
+                                {% for i in "54321" %}
+                                    <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
+                                    <label for="star{{ i }}">&#9733;</label>
+                                {% endfor %}
+                            </div>
                         </div>
+
+
                         <div class="mb-3">
                             {{ review_form.review_text.label_tag }}
                             {{ review_form.review_text }}

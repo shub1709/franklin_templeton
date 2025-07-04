@@ -5,9 +5,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 class ReviewForm(forms.ModelForm):
+    rating = forms.ChoiceField(
+        choices=UserReview.RATING_CHOICES,
+        widget=forms.RadioSelect,
+        label="Rating"
+    )
     class Meta:
         model = UserReview
-        fields = ['review_text', 'sentiment']
+        fields = ['review_text', 'sentiment', 'rating']
         widgets = {
             'review_text': forms.Textarea(attrs={
                 'class': 'form-control',

@@ -40,7 +40,7 @@ class UserReview(models.Model):
     app = models.ForeignKey(GooglePlayApp, on_delete=models.CASCADE, related_name='user_reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     review_text = models.TextField()
-    sentiment = models.CharField(max_length=20, choices=SENTIMENT_CHOICES, default='Neutral')
+    sentiment = models.CharField(max_length=20, choices=SENTIMENT_CHOICES, default='Neutral', null=True, blank= True)
     sentiment_polarity = models.FloatField(default=0.0)
     sentiment_subjectivity = models.FloatField(default=0.0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
