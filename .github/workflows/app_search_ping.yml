@@ -1,0 +1,36 @@
+name: URL Ping Monitor
+
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  ping-url:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Ping URL
+      run: |
+        # Replace with your actual URL
+        URL="https://app-search-eh8o.onrender.com/"
+        
+        echo "Pinging $URL at $(date)"
+        
+        # Use curl to ping the URL
+        if curl -f -s -o /dev/null -w "%{http_code}" "$URL" | grep -q "200"; then
+          echo "✅ URL is responding (HTTP 200)"
+        else
+          echo "❌ URL is not responding properly"
+          # Optional: exit with error code to mark the job as failed
+          exit 1
+        fi
+    
+    - name: Log ping result
+      run: |
+        echo "Ping completed at $(date)"
+        echo "Next ping scheduled in 10 minutes"
