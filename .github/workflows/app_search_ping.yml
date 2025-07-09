@@ -2,8 +2,8 @@ name: URL Ping Monitor
 
 on:
   schedule:
-    # Runs every 10 minutes
-    - cron: '*/10 * * * *'
+    # Runs every 12 minutes
+    - cron: '*/12 * * * *'
   workflow_dispatch: # Allows manual triggering
 
 jobs:
